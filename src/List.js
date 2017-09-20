@@ -16,7 +16,7 @@ export default class List extends React.Component {
         backgroundColor: 'rgba(255, 153, 153, 0.2)',
         width: 300,
         height: 300,
-        overflow: 'scroll',
+        overflow: 'auto',
       },
       innerContainer: {
         display: 'flex',
