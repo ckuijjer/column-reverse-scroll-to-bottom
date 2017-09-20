@@ -29,7 +29,7 @@ class App extends Component {
     }));
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     if (this.state.shouldScrollToBottom && this.list) {
       this.list.scrollToBottom();
       this.setState({ shouldScrollToBottom: false });
