@@ -18,18 +18,11 @@ export default class List extends React.Component {
         height: 300,
         overflow: 'auto',
       },
-      innerContainer: {
-        display: 'flex',
-        flexDirection: 'column-reverse',
-        backgroundColor: 'rgba(153, 153, 255, 0.2)',
-      },
     };
 
     return (
       <div style={styles.container} ref={el => (this.container = el)}>
-        <div style={styles.innerContainer}>
-          {[...items].reverse().map((item, i) => <Item key={item}>{item}</Item>)}
-        </div>
+        {items.map((item, i) => <Item key={item}>{item}</Item>)}
       </div>
     );
   }

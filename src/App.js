@@ -9,6 +9,7 @@ const initialItems = () =>
 class App extends Component {
   state = {
     items: initialItems(),
+    shouldScrollToBottom: false,
   };
 
   addItem = () => {
@@ -19,7 +20,7 @@ class App extends Component {
 
   addItemAndScroll = () => {
     this.addItem();
-    this.list && this.list.scrollToBottom();
+    this.setState({ shouldScrollToBottom: true });
   };
 
   resetInitialItems = () => {
@@ -27,6 +28,13 @@ class App extends Component {
       items: initialItems(),
     }));
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.shouldScrollToBottom && this.list) {
+      this.list.scrollToBottom();
+      this.setState({ shouldScrollToBottom: false });
+    }
+  }
 
   render() {
     const styles = {
