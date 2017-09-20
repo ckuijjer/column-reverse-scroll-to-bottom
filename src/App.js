@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 
 const NUMBER_OF_INITIAL_ITEMS = 3;
 
+const initialItems = () =>
+  new Array(NUMBER_OF_INITIAL_ITEMS).fill(0).map((_, i) => i);
+
 class App extends Component {
   state = {
-    items: new Array(NUMBER_OF_INITIAL_ITEMS).fill(0).map((_, i) => i),
+    items: initialItems(),
   };
 
   addItem = () => {
@@ -15,6 +18,12 @@ class App extends Component {
 
   addItemAndScroll = () => {
     this.addItem();
+  };
+
+  resetInitialItems = () => {
+    this.setState(state => ({
+      items: initialItems(),
+    }));
   };
 
   render() {
@@ -33,6 +42,9 @@ class App extends Component {
         <button style={styles.button} onClick={this.addItemAndScroll}>
           Add item and scroll
         </button>
+        <button style={styles.button} onClick={this.resetInitialItems}>
+          Reset initial items
+        </button>
       </div>
     );
   }
@@ -45,9 +57,20 @@ const List = ({ items }) => {
     width: 300,
     height: 300,
     overflow: 'scroll',
+    display: 'flex',
+    flexDirection: 'column-reverse',
   };
 
-  return <div style={style}>{items.map(item => <Item>{item}</Item>)}</div>;
+  console.log('items', items);
+
+  return (
+    <div style={style}>
+      {[...items].reverse().map((item, i) => {
+        console.log(`item ${item} index ${i}`);
+        return <Item>{item}</Item>;
+      })}
+    </div>
+  );
 };
 
 const Item = ({ children }) => {
