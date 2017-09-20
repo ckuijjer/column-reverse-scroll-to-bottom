@@ -56,7 +56,7 @@ class List extends React.Component {
     if (this.container) {
       this.container.scrollTop = this.container.scrollHeight;
     }
-  }
+  };
 
   render() {
     const { items } = this.props;
@@ -71,11 +71,8 @@ class List extends React.Component {
     };
 
     return (
-      <div style={style} ref={el => this.container = el}>
-        {[...items].reverse().map((item, i) => {
-          console.log(`item ${item} index ${i}`);
-          return <Item>{item}</Item>;
-        })}
+      <div style={style} ref={el => (this.container = el)}>
+        {[...items].reverse().map((item, i) => <Item>{item}</Item>)}
       </div>
     );
   }
