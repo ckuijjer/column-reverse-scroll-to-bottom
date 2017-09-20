@@ -28,7 +28,7 @@ export default class List extends React.Component {
     return (
       <div style={styles.container} ref={el => (this.container = el)}>
         <div style={styles.innerContainer}>
-          {[...items].reverse().map((item, i) => <Item>{item}</Item>)}
+          {[...items].reverse().map((item, i) => <Item key={item}>{item}</Item>)}
         </div>
       </div>
     );
