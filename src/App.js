@@ -18,6 +18,7 @@ class App extends Component {
 
   addItemAndScroll = () => {
     this.addItem();
+    this.list && this.list.scrollToBottom();
   };
 
   resetInitialItems = () => {
@@ -35,7 +36,7 @@ class App extends Component {
     return (
       <div style={styles.container}>
         {this.state.counter}
-        <List items={this.state.items} />
+        <List items={this.state.items} ref={el => (this.list = el)} />
         <button style={styles.button} onClick={this.addItem}>
           Add item
         </button>
@@ -50,28 +51,35 @@ class App extends Component {
   }
 }
 
-const List = ({ items }) => {
-  const style = {
-    border: '1px solid #f99',
-    backgroundColor: 'rgba(255, 153, 153, 0.2)',
-    width: 300,
-    height: 300,
-    overflow: 'scroll',
-    display: 'flex',
-    flexDirection: 'column-reverse',
-  };
+class List extends React.Component {
+  scrollToBottom = () => {
+    if (this.container) {
+      this.container.scrollTop = this.container.scrollHeight;
+    }
+  }
 
-  console.log('items', items);
+  render() {
+    const { items } = this.props;
+    const style = {
+      border: '1px solid #f99',
+      backgroundColor: 'rgba(255, 153, 153, 0.2)',
+      width: 300,
+      height: 300,
+      overflow: 'scroll',
+      display: 'flex',
+      flexDirection: 'column-reverse',
+    };
 
-  return (
-    <div style={style}>
-      {[...items].reverse().map((item, i) => {
-        console.log(`item ${item} index ${i}`);
-        return <Item>{item}</Item>;
-      })}
-    </div>
-  );
-};
+    return (
+      <div style={style} ref={el => this.container = el}>
+        {[...items].reverse().map((item, i) => {
+          console.log(`item ${item} index ${i}`);
+          return <Item>{item}</Item>;
+        })}
+      </div>
+    );
+  }
+}
 
 const Item = ({ children }) => {
   const style = {
